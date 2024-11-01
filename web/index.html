@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>NBA Data Visualizations</title>
+    <link rel="stylesheet" href="css/attempt3.css">
+    <link rel="icon" type="image/png" href="img/nba.png">
+</head>
+<body>
+    <nav class="purple darken-2">
+        <div class="nav-wrapper">
+            <a class="white-text brand-logo" href="/">NBA Data Visualization</a>
+        </div>
+    </nav>
+    <div class="container">
+        <h1>Select a Team</h1>
+        <select name="team" id="idk">
+            <option value="" disabled selected>Choose your option</option>
+        </select>
+        <div>
+            <button>Get Players</button>
+        </div>
+    </div>
+    <script>
+        const select = document.querySelector('select')
+        fetch('/teams', {
+            method: 'POST'
+        })
+        .then(response => response.json())
+        .then(data => {
+            data.forEach(team => {
+                const option = document.createElement('option')
+                option.value = team
+                option.text = team
+                select.appendChild(option)
+            })
+        })
+
+        document.querySelector('button').addEventListener('click', function() {
+            window.location.href = "/players.html?team=" + document.querySelector('select').value;
+        })  
+    </script>
+
+</html>
